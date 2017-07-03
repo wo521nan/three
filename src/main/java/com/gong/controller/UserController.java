@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  */
 @Controller
 public class UserController {
-    @Autowired
+//    @Autowired
    private UserService userService;
     public void setUserService(UserService userService)
     {

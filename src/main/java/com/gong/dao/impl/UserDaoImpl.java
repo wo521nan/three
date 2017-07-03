@@ -13,7 +13,6 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2017/6/29.
  */
-@Repository(value = "userDao")
 public class UserDaoImpl implements UserDao {
     private RedisTemplate<Serializable,Serializable> redisTemplate;
     public RedisTemplate<Serializable, Serializable> getRedisTemplate() {

@@ -10,3 +10,6 @@
 
 姓名： ${user.username}<br>
 密码： ${user.password}
+<form action="/dengchu.do">
+    <input type="submit" value="退出">
+</form>

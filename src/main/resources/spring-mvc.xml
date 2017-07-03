@@ -8,20 +8,25 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
 <!--扫描controller，并将其生命周期纳入spring管理-->
-    <context:annotation-config/>
-    <context:component-scan base-package="com.gong.controller">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
-<!--注解驱动，以使得访问路径和方法的匹配可以通过注解配置-->
-    <mvc:annotation-driven />
-<!--静态页面可以访问-->
-    <mvc:default-servlet-handler />
+    <!--<context:annotation-config/>-->
+    <!--<context:component-scan base-package="com.gong.controller">-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+    <!--</context:component-scan>-->
+<!--&lt;!&ndash;注解驱动，以使得访问路径和方法的匹配可以通过注解配置&ndash;&gt;-->
+    <!--<mvc:annotation-driven />-->
+<!--&lt;!&ndash;静态页面可以访问&ndash;&gt;-->
+    <!--<mvc:default-servlet-handler />-->
+
+    <bean id="userController" class="com.gong.controller.UserController">
+        <property name="userService" ref="userService"></property>
+    </bean>
+
 <!--视图定位-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-    <!--乱码解决-->
+
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="UTF-8" />
@@ -32,4 +37,5 @@
         <!-- 一个类似懒加载的属性.可以定义该属性.让解析文件的时候再抛异常,然后Controller中定义异常处理的方法 -->
         <property name="resolveLazily" value="true" />
     </bean>
+
 </beans>
