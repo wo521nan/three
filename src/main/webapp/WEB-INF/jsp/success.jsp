@@ -10,6 +10,6 @@
 
 姓名： ${user.username}<br>
 密码： ${user.password}
-<form action="/dengchu.do">
+<form action="${pageContext.request.contextPath}/dengchu">
     <input type="submit" value="退出">
 </form>

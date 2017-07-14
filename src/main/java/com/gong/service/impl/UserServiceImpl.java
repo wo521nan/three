@@ -6,14 +6,15 @@ import com.gong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * Created by Administrator on 2017/6/29.
  */
+
 public class UserServiceImpl implements UserService {
+
     private UserDao userDao;
-    public UserDao getUserDao() {
-        return userDao;
-    }
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;

@@ -4,6 +4,7 @@ import com.gong.model.User;
 import com.gong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,31 +17,65 @@ import javax.annotation.Resource;
  */
 @Controller
 public class UserController {
-//    @Autowired
+
    private UserService userService;
+
     public void setUserService(UserService userService)
     {
        this.userService = userService;
     }
+    private static String notExistent = "用户不存在";
+    private static String passwordError = "密码错误";
 
-//    @RequestMapping(value = "/login",method = RequestMethod.GET)
-//    public ModelAndView login(User user){
-//        ModelAndView mv = new ModelAndView("success");
-//        userService.saveUser(user);
-//        User user9 = userService.getUser(user.getId());
-//        System.out.println(user9.getUsername());
-//        return mv;
-//    }
-        @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public ModelAndView login(User user){
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login(ModelMap modelMap, User user){
+        User user1 =userService.getUser(user.getUsername());
+        if (user1 != null){
+            if (user1.getPassword().equals(user.getPassword())){
+                return "success";
+            }else {
+                modelMap.addAttribute("error",passwordError);
+                return "failpassword";
+            }
+        }else {
+            modelMap.addAttribute("error",notExistent);
+            return "failusername";
+        }
+    }
+
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    public ModelAndView index(User user){
         ModelAndView mv = new ModelAndView();
-        userService.saveUser(user);
-//        User user9 = userService.getUser(user.getId());
-//        System.out.println(user9.getUsername());
-            mv.addObject("message","注册成功！");
-            mv.setViewName("success");
         return mv;
     }
+
+    @RequestMapping(value = "/reg",method = RequestMethod.GET)
+    public String reg(ModelMap modelMap,User user){
+        User u = userService.getUser(user.getUsername());
+        if (u != null){
+            modelMap.addAttribute("msg","用户已存在，请重新注册");
+            return "failreg";
+        }else {
+            userService.saveUser(user);
+            modelMap.addAttribute("msg","恭喜你注册成功");
+            return "successreg";
+        }
+    }
+//    @RequestMapping(value = "/login",method = RequestMethod.GET)
+//    public ModelAndView login(User user){
+//        ModelAndView mv = new ModelAndView();
+//        if (user==null){
+//            return mv;
+//        }else {
+//            userService.saveUser(user);
+////        User user9 = userService.getUser(user.getId());
+////        System.out.println(user9.getUsername());
+//            mv.addObject("message","注册成功！");
+//            mv.setViewName("success");
+//            return mv;
+//        }
+//
+//    }
 
 
     @RequestMapping(value = "/dengchu",method = RequestMethod.GET)
@@ -49,24 +84,24 @@ public class UserController {
         return mv;
     }
 
-    @RequestMapping(value = "/denglu",method = RequestMethod.GET)
-    public ModelAndView denglu(User user){
-        ModelAndView mv = new ModelAndView();
-        User user6 = userService.getUser(user.getUsername());
-        if(null!=user6){
-            if (user6.getPassword().equals(user.getPassword())){
-                mv.addObject("message", "查询用户名为:" + user6.getUsername());
-                mv.setViewName("success");
-            }else {
-                mv.addObject("message","用户密码错误");
-                mv.setViewName("failpassword");
-            }
-        }else{
-            mv.addObject("message", "用户名不存在");
-            mv.setViewName("failusername");
-        }
-        return mv;
-    }
+//    @RequestMapping(value = "/denglu",method = RequestMethod.GET)
+//    public ModelAndView denglu(User user){
+//        ModelAndView mv = new ModelAndView();
+//        User user6 = userService.getUser(user.getUsername());
+//        if(null!=user6){
+//            if (user6.getPassword().equals(user.getPassword())){
+//                mv.addObject("message", "用户名为:" + user6.getUsername());
+//                mv.setViewName("success");
+//            }else {
+//                mv.addObject("message","用户密码错误");
+//                mv.setViewName("failpassword");
+//            }
+//        }else{
+//            mv.addObject("message", "用户名不存在");
+//            mv.setViewName("failusername");
+//        }
+//        return mv;
+//    }
     }
 
 
