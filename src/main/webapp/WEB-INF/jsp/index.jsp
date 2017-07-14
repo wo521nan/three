@@ -8,3 +8,8 @@
 
     <input type="submit" value="登aa录">
 </form>
+
+<form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <input type="submit" value="Submit" />
+</form>

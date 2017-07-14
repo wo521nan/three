@@ -1,0 +1,12 @@
+[0714/091340:ERROR:renderer_main.cc(203)] Running without renderer sandbox
+[0714/091341:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0714/091341:INFO:CONSOLE(0)] "Failed to decode downloaded font: http://m.blog.csdn.net/static/fonts/iconfont.eot?1573b42e3f0", source: http://m.blog.csdn.net/u011079274/article/details/51477287 (0)
+[0714/091343:INFO:CONSOLE(0)] "Failed to decode downloaded font: http://m.blog.csdn.net/static/fonts/iconfont.eot?1573b42e3f0", source: http://m.blog.csdn.net/u011079274/article/details/51477287 (0)
+[0714/091345:INFO:CONSOLE(0)] "Failed to decode downloaded font: http://m.blog.csdn.net/static/fonts/iconfont.eot?1573b42e3f0", source: http://m.blog.csdn.net/u011079274/article/details/51477287 (0)
+[0714/091354:ERROR:renderer_main.cc(203)] Running without renderer sandbox
+[0714/091354:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0714/091355:INFO:CONSOLE(0)] "Failed to decode downloaded font: http://m.blog.csdn.net/static/fonts/iconfont.eot?1573b42e3f0", source: http://m.blog.csdn.net/u011079274/article/details/51477287 (0)
+[0714/091355:INFO:CONSOLE(0)] "Failed to decode downloaded font: http://m.blog.csdn.net/static/fonts/iconfont.eot?1573b42e3f0", source: http://m.blog.csdn.net/u011079274/article/details/51477287 (0)
+[0714/091355:INFO:CONSOLE(0)] "Failed to decode downloaded font: http://m.blog.csdn.net/static/fonts/iconfont.eot?1573b42e3f0", source: http://m.blog.csdn.net/u011079274/article/details/51477287 (0)
+[0714/091404:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304
+[0714/091404:ERROR:child_discardable_shared_memory_manager.cc(266)] size: 4194304

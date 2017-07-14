@@ -5,12 +5,11 @@ import com.gong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Administrator on 2017/6/29.
@@ -43,6 +42,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 初始登陆界面
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public ModelAndView index(User user){
         ModelAndView mv = new ModelAndView();
@@ -61,48 +65,114 @@ public class UserController {
             return "successreg";
         }
     }
-//    @RequestMapping(value = "/login",method = RequestMethod.GET)
-//    public ModelAndView login(User user){
-//        ModelAndView mv = new ModelAndView();
-//        if (user==null){
-//            return mv;
-//        }else {
-//            userService.saveUser(user);
-////        User user9 = userService.getUser(user.getId());
-////        System.out.println(user9.getUsername());
-//            mv.addObject("message","注册成功！");
-//            mv.setViewName("success");
-//            return mv;
-//        }
-//
-//    }
 
+    /**
+     * 练习获取get方式url路径上的参数
+     * @param username
+     * @param password
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/index/{username}/{password}",method = RequestMethod.GET)
+    public String index(@PathVariable String username,@PathVariable String password,ModelMap modelMap){
+        User user = userService.getUser(username);
+        System.out.println(username);
+        System.out.println(password);
+        if (user != null){
+            if (user.getPassword().equals(password)){
+                modelMap.addAttribute("username",username);
+                modelMap.addAttribute("password",password);
+                return "successo";
+            }else {
+                modelMap.addAttribute("error",passwordError);
+                return "failpassword";
+            }
+        }else {
+            modelMap.addAttribute("error",notExistent);
+            return "failusername";
+        }
+    }
 
+    /**
+     * 初始登出界面
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "/dengchu",method = RequestMethod.GET)
     public ModelAndView dengchu(User user){
         ModelAndView mv = new ModelAndView("denglu");
         return mv;
     }
 
-//    @RequestMapping(value = "/denglu",method = RequestMethod.GET)
-//    public ModelAndView denglu(User user){
-//        ModelAndView mv = new ModelAndView();
-//        User user6 = userService.getUser(user.getUsername());
-//        if(null!=user6){
-//            if (user6.getPassword().equals(user.getPassword())){
-//                mv.addObject("message", "用户名为:" + user6.getUsername());
-//                mv.setViewName("success");
-//            }else {
-//                mv.addObject("message","用户密码错误");
-//                mv.setViewName("failpassword");
-//            }
-//        }else{
-//            mv.addObject("message", "用户名不存在");
-//            mv.setViewName("failusername");
-//        }
-//        return mv;
-//    }
+    /**
+     * 练习获取post表单参数
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public String dl(@ModelAttribute("user") User user, ModelMap modelMap){
+        User usero =userService.getUser(user.getUsername());
+        if (usero != null){
+            if (usero.getPassword().equals(user.getPassword())){
+                return "success";
+            }else {
+                modelMap.addAttribute("error",passwordError);
+                return "failpassword";
+            }
+        }else {
+            modelMap.addAttribute("error",notExistent);
+            return "failusername";
+        }
     }
+
+    /**
+     * 练习了get方式，通过httpservletrequest获取参数
+     * @param request
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String log(HttpServletRequest request, ModelMap modelMap){
+        User user = userService.getUser(request.getParameter("username"));
+        if (user != null){
+            if (user.getPassword().equals(request.getParameter("password"))){
+                return "success";
+            }else {
+                modelMap.addAttribute("error",passwordError);
+                return "failpassword";
+            }
+        }else {
+            modelMap.addAttribute("error",notExistent);
+            return "failusername";
+        }
+    }
+
+    /**
+     * 练习通过@RequestParam来获得参数
+     * @param username
+     * @param password
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String log(@RequestParam String username,@RequestParam String password, ModelMap modelMap){
+        User user = userService.getUser(username);
+        if (user != null){
+            if (user.getPassword().equals(password)){
+                return "success";
+            }else {
+                modelMap.addAttribute("error",passwordError);
+                return "failpassword";
+            }
+        }else {
+            modelMap.addAttribute("error",notExistent);
+            return "failusername";
+        }
+    }
+
+
+
+}
 
 
 //    @RequestMapping(value = "/add",method = RequestMethod.GET)
